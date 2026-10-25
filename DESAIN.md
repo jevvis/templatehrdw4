@@ -10,7 +10,7 @@ Template portofolio berstruktur seperti milik Davin (sistem, bukan salinan visua
 |---|---|
 | Next.js App Router + TypeScript + Tailwind + Framer Motion | sama |
 | `lib/data.ts` + `types.ts` + `utils.ts` | `lib/content.ts` (data ID/EN), `lib/types.ts`, `lib/utils.ts` |
-| Hero: kartu ID 3D di tali (dugaan: three.js + fisika) | **Kartu ID 2D** dengan fisika ayunan Framer Motion (ringan di HP) |
+| Hero: kartu ID 3D di tali (dugaan: three.js + fisika) | **Awalnya 2D (Framer Motion); diganti ke 3D berfisika atas permintaan pemilik** (three.js + react-three-fiber + Rapier + meshline), dengan cadangan 2D untuk perangkat tanpa WebGL/lemah. Pita V bercetak + gesper hitam mengikuti gambar referensi pemilik |
 | LoadingScreen, ScrollProgress, CustomCursor, PageTransition | semua ada; kursor khusus hanya di perangkat dengan mouse |
 | Projects + halaman detail `projects/[slug]` (Overview, Problem, Features, Stack, Process, Challenges, Result) | Pengalaman magang + `pengalaman/[slug]` berisi hanya yang ada di CV (peran, instansi, periode, kegiatan); **tidak mengarang** Problem/Challenges/Result |
 | Filter chip pada Skills | Filter chip kategori pada Pengalaman (Rumah Sakit, Apotek, Puskesmas, Regulatori, Industri, Akademik; klasifikasi dari nama instansi, pilihan saya) |
