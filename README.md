@@ -13,14 +13,14 @@ node cek/cek-kode.mjs   # penjaga perbaikan hasil review (opsional)
 `?loading=1` menampilkan lagi layar loading (biasanya hanya sekali per sesi).
 
 ## Lanyard 3D
-`components/ui/Lanyard3D.tsx`: three.js + `@react-three/fiber` + `@react-three/drei` + `@react-three/rapier` (mesin fisika, WebAssembly) + `meshline` (pita). Tali = rantai benda fisik bersendi tali, kartu menempel lewat sendi bola; kartu dan pita memakai tekstur yang digambar dari kode (tanpa file model). Paketnya dimuat lazy (sekitar 0,9 MB terkompresi) dan render berhenti saat keluar layar.
+`components/ui/Lanyard3D.tsx`: three.js + `@react-three/fiber` + `@react-three/drei` + `@react-three/rapier` (mesin fisika, WebAssembly) + `meshline` (pita). Struktur mengikuti proyek `3D_CARD` milik pemilik: `public/assets/lanyard/kartu.glb` (bagian `card`, `clip`, `clamp`) digantung pada rantai benda fisik bersendi tali, kartu menempel lewat sendi bola. Sisi depan kartu (foto, nama, IPK) dan tulisan pita digambar dari kode ke atlas tekstur; sisi belakang tetap motif asli model. Pemetaan UV: sisi depan = kotak kiri atlas (u 0-0,5, v 0-0,755), belakang = kotak kanan. Untuk memakai pita asli ("3D CARD"), ganti `drawBand` dengan `useTexture('/assets/lanyard/bandd.png')`. Paketnya dimuat lazy (sekitar 0,9 MB terkompresi) dan render berhenti saat keluar layar.
 - `LanyardCard.tsx` memilih 3D bila WebGL tersedia dan perangkat memadai (memori ≥ 4 GB, CPU ≥ 4 inti); jika tidak, memakai `Lanyard2D.tsx`.
 - `?lanyard=2d` / `?lanyard=3d` memaksa salah satunya.
 - Pengguna dengan pengaturan "kurangi gerak" tetap mendapat 3D, tetapi tenang: rantai mulai lurus dan hanya bergerak saat diseret (`?motion=1` mengembalikan ayunan masuk).
 - Atur gravitasi di `<Physics gravity>`, panjang tali di `ROPE`, lebar pita di `STRAP_W`, tulisan pita di `drawBand`.
 
 ## Fitur
-Layar loading · progress scroll · kursor khusus (hanya perangkat dengan mouse) · navbar dengan scrollspy + menu HP · transisi halaman · hero dengan **lanyard 3D berfisika** (kartu ID di pita V dengan gesper hitam, bisa diseret dan berayun karena gravitasi; cadangan 2D untuk perangkat tanpa WebGL/lemah) · statistik berhitung naik · filter kategori pengalaman · halaman detail `/pengalaman/[slug]` · timeline organisasi · sertifikat dengan modal · logo software · form kontak (membuka `mailto:`) · halaman 404 · `sitemap.xml` + `robots.txt` + metadata Open Graph.
+Layar loading · progress scroll · kursor khusus (hanya perangkat dengan mouse) · navbar dengan scrollspy + menu HP · transisi halaman · hero dengan **lanyard 3D berfisika** (model `kartu.glb` milik pemilik: pita hitam bertulisan, kartu ID yang bisa diseret dan berayun karena gravitasi; cadangan 2D untuk perangkat tanpa WebGL/lemah) · statistik berhitung naik · filter kategori pengalaman · halaman detail `/pengalaman/[slug]` · timeline organisasi · sertifikat dengan modal · logo software · form kontak (membuka `mailto:`) · halaman 404 · `sitemap.xml` + `robots.txt` + metadata Open Graph.
 
 ## Struktur
 ```

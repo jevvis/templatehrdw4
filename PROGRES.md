@@ -25,3 +25,8 @@ Uji: tsc bersih; cek-kode 11/11; build OK (home 157 kB, paket 3D lazy ~0,9 MB gz
 Temuan saat uji: pengguna 'kurangi gerak' awalnya dialihkan ke 2D — diganti mode tenang 3D. Pita meshline: lebar dalam satuan layar (STRAP_W 2.2 setara ~27% lebar kartu).
 Ruling: seret dengan mouse/jari sungguhan belum bisa diuji otomatis (browser uji hanya menggambar frame saat screenshot, event sintetis tidak lolos raycast); diverifikasi lewat hover nyata (kursor grab) + dorongan fisik. Perlu dicoba manual di browser dan HP.
 Ruling: mode cadangan 2D dipakai bila deviceMemory < 4 atau hardwareConcurrency < 4 atau tanpa WebGL — angka ambang pilihan saya.
+Lanyard dari proyek pemilik (Downloads/3D_CARD-main): kartu.glb + bandd.png disalin ke public/assets/lanyard/. Bongkar GLB: node card/clip/clamp; UV depan u 0-0,5 v 0-0,755 (selaras x, v terbalik), belakang u 0,5-1 (cermin) -> atlas 1024x1024 digambar: motif asli + depan Hafizah (716x1000 dipetakan ke 510x769). Lanyard3D.tsx ditulis ulang mengikuti App.js sumber (rantai 3 ruas, lerp tali, kamera fov 25).
+Temuan: lerp tali pada kode sumber (delta*kecepatan) > 1 saat jeda frame besar -> pita meluncur melintasi kartu; dibatasi (delta<=0,05, t<=1). Penjepit model menutupi kepala di foto -> foto diturunkan (84% tinggi area).
+Uji: cek-kode 12/12, tsc bersih, build OK; 3D tampil di desktop/375/320, EN berganti, 2D cadangan, hover nyata -> grab.
+Ruling: pita memakai teks 'HAFIZAH' (digambar), bukan '3D CARD' bawaan; bandd.png asli tetap disertakan. Biaya jika salah: ganti satu fungsi.
+Ruling: sisi belakang kartu tetap motif kartu remi bawaan model (belum dilihat langsung di layar, hanya dari atlas).
