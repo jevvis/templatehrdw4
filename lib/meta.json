@@ -1,0 +1,15 @@
+{
+  "slugs": [
+    "rsup-dr-kariadi",
+    "kimia-farma-cikokol",
+    "puskesmas-cengkareng",
+    "kemenkes-farmalkes",
+    "bio-farma",
+    "asisten-praktikum-farmakologi"
+  ],
+  "categories": ["hospital", "pharmacy", "primary", "regulatory", "industry", "academic"],
+  "categoryLabels": {
+    "id": { "all": "Semua", "hospital": "Rumah Sakit", "pharmacy": "Apotek", "primary": "Puskesmas", "regulatory": "Regulatori", "industry": "Industri", "academic": "Akademik" },
+    "en": { "all": "All", "hospital": "Hospital", "pharmacy": "Community Pharmacy", "primary": "Primary Care", "regulatory": "Regulatory", "industry": "Industry", "academic": "Academic" }
+  }
+}

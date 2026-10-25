@@ -1,0 +1,43 @@
+import type { Lang } from './types'
+
+/** Teks antarmuka (di luar isi CV) dalam dua bahasa. */
+export const STR: Record<Lang, Record<string, string>> = {
+  id: {
+    nav_home: 'Beranda', nav_about: 'Tentang', nav_education: 'Pendidikan', nav_experience: 'Pengalaman',
+    nav_organization: 'Organisasi', nav_certificates: 'Sertifikasi', nav_skills: 'Keahlian', nav_contact: 'Kontak',
+    menu: 'Menu', close: 'Tutup', skip: 'Lewati ke konten',
+    welcome: 'SELAMAT DATANG DI PORTOFOLIO SAYA', hi: 'Hai, saya', role: 'Apoteker',
+    hero_cta1: 'Hubungi Saya', hero_cta2: 'Lihat Pengalaman', hero_cta3: 'LinkedIn', drag_hint: 'Seret kartunya',
+    card_role: 'Apoteker', card_gpa: 'IPK', card_prof: 'Profesi Apoteker',
+    about_eyebrow: 'KENAL LEBIH DEKAT', about_focus: 'Area kompetensi',
+    stat_gpa_prof: 'IPK Profesi Apoteker', stat_gpa_s1: 'IPK Sarjana Farmasi', stat_exp: 'Pengalaman Magang', stat_cert: 'Sertifikasi & Lisensi',
+    edu_eyebrow: 'RIWAYAT AKADEMIK', exp_eyebrow: 'PENGALAMAN PRAKTIK', org_eyebrow: 'KEPEMIMPINAN', cert_eyebrow: 'BUKTI KOMPETENSI',
+    skills_eyebrow: 'KEMAMPUAN', skills_title: 'Keahlian & Kemampuan', skills_tech: 'Kemampuan Teknis', skills_personal: 'Kemampuan Personal', skills_software: 'Kemampuan Software',
+    detail: 'Lihat detail', back_to_exp: 'Kembali ke pengalaman', overview: 'Ringkasan', activities: 'Kegiatan & Tanggung Jawab',
+    institution: 'Instansi', period: 'Periode', category: 'Kategori', prev: 'Sebelumnya', next: 'Berikutnya',
+    contact_eyebrow: 'MARI TERHUBUNG', contact_title: 'Hubungi Saya', contact_desc: 'Punya pertanyaan atau ingin berkolaborasi? Kirim pesan, aplikasi email kamu akan terbuka dengan pesan yang sudah terisi.',
+    form_name: 'Nama', form_email: 'Email kamu', form_msg: 'Pesan', form_send: 'Kirim lewat email', form_hint: 'Membuka aplikasi email kamu.',
+    form_ph_name: 'Nama lengkap', form_ph_email: 'nama@email.com', form_ph_msg: 'Tulis pesan singkat…',
+    rights: 'Hak cipta dilindungi.', cert_close: 'Tutup', cert_count: 'dari',
+    nf_title: 'Halaman tidak ditemukan', nf_desc: 'Alamat yang kamu tuju tidak ada atau sudah dipindahkan.', nf_back: 'Kembali ke beranda',
+  },
+  en: {
+    nav_home: 'Home', nav_about: 'About', nav_education: 'Education', nav_experience: 'Experience',
+    nav_organization: 'Organization', nav_certificates: 'Certificates', nav_skills: 'Skills', nav_contact: 'Contact',
+    menu: 'Menu', close: 'Close', skip: 'Skip to content',
+    welcome: 'WELCOME TO MY PORTFOLIO', hi: "Hi, I'm", role: 'Licensed Pharmacist',
+    hero_cta1: 'Contact Me', hero_cta2: 'View Experience', hero_cta3: 'LinkedIn', drag_hint: 'Drag the card',
+    card_role: 'Licensed Pharmacist', card_gpa: 'GPA', card_prof: 'Pharmacist Profession',
+    about_eyebrow: 'GET TO KNOW ME', about_focus: 'Areas of competence',
+    stat_gpa_prof: 'Pharmacist Profession GPA', stat_gpa_s1: 'Bachelor of Pharmacy GPA', stat_exp: 'Internships', stat_cert: 'Certificates & Licenses',
+    edu_eyebrow: 'ACADEMIC BACKGROUND', exp_eyebrow: 'PRACTICAL EXPERIENCE', org_eyebrow: 'LEADERSHIP', cert_eyebrow: 'PROOF OF COMPETENCE',
+    skills_eyebrow: 'SKILLS', skills_title: 'Skills & Abilities', skills_tech: 'Technical Skills', skills_personal: 'Personal Skills', skills_software: 'Software Skills',
+    detail: 'View details', back_to_exp: 'Back to experience', overview: 'Overview', activities: 'Activities & Responsibilities',
+    institution: 'Institution', period: 'Period', category: 'Category', prev: 'Previous', next: 'Next',
+    contact_eyebrow: "LET'S CONNECT", contact_title: 'Contact Me', contact_desc: 'Have a question or want to collaborate? Send a message and your email app will open with it pre-filled.',
+    form_name: 'Name', form_email: 'Your email', form_msg: 'Message', form_send: 'Send by email', form_hint: 'Opens your email app.',
+    form_ph_name: 'Full name', form_ph_email: 'name@email.com', form_ph_msg: 'Write a short message…',
+    rights: 'All rights reserved.', cert_close: 'Close', cert_count: 'of',
+    nf_title: 'Page not found', nf_desc: 'The address you opened does not exist or has moved.', nf_back: 'Back to home',
+  },
+}
