@@ -49,7 +49,8 @@ export default function Hero() {
           </a>
         </motion.div>
       </div>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: ready ? 1 : 0 }} transition={{ delay: 0.5, duration: 1 }}>
+      {/* di HP/tablet (satu kolom) lanyard dipindah ke paling atas, pita menggantung dari tepi atas halaman; di lg ke atas tetap kolom kanan */}
+      <motion.div className="order-first lg:order-none" initial={{ opacity: 0 }} animate={{ opacity: ready ? 1 : 0 }} transition={{ delay: 0.5, duration: 1 }}>
         <LanyardCard />
       </motion.div>
     </section>
