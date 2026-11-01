@@ -4,12 +4,12 @@ import { motion } from 'framer-motion'
 import { useLang } from '@/components/providers/LanguageProvider'
 import LanyardCard from '@/components/ui/LanyardCard'
 import { useReady } from '@/lib/ready'
-import { fadeUp } from '@/lib/utils'
+import { WHATSAPP_NUMBER, fadeUp } from '@/lib/utils'
 
 export default function Hero() {
   const { c, s } = useLang()
   const lead = c.tx.aboutText.split('. ')[0] + '.'
-  const email = c.contacts[0]
+  const wa = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(s.wa_greeting)}` // sama dengan tombol di bagian Kontak
   const linkedin = c.contacts[2]
   const ready = useReady() // animasi masuk menunggu layar loading mulai naik
   const item = { variants: fadeUp, initial: 'hidden', animate: ready ? 'show' : 'hidden' } as const
@@ -38,7 +38,7 @@ export default function Hero() {
           {lead}
         </motion.p>
         <motion.div {...item} custom={6} className="mt-8 flex flex-wrap gap-3">
-          <a href={email.href} className="btn-primary">
+          <a href={wa} target="_blank" rel="noopener noreferrer" className="btn-primary">
             {s.hero_cta1}
           </a>
           <a href="#experience" className="btn-ghost">
