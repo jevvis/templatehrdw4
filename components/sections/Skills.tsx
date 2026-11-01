@@ -11,24 +11,22 @@ export default function Skills() {
   const { c, s } = useLang()
   return (
     <section id="skills" className="section">
-      <SectionHeading eyebrow={s.skills_eyebrow} title={s.skills_title} />
-      <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
+      <SectionHeading title={s.skills_title} />
+      <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
         <Reveal>
-          <div className="glass rounded-3xl p-6 sm:p-8">
-            <h3 className="mb-5 text-lg font-bold">{s.skills_tech}</h3>
-            <ol className="grid gap-3 sm:grid-cols-2">
-              {c.technical.map((t, i) => (
-                <li key={t} className="flex gap-3 rounded-2xl border p-3.5 text-sm leading-snug text-text-secondary transition-colors hover:bg-white/5" style={{ borderColor: 'var(--line)' }}>
-                  <b className="gradient-text w-6 shrink-0 font-bold">{String(i + 1).padStart(2, '0')}</b>
-                  <span>{t}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
+          <h3 className="text-lg font-bold">{s.skills_tech}</h3>
+          <ol className="mt-5 grid gap-x-10 sm:grid-cols-2">
+            {c.technical.map((t, i) => (
+              <li key={t} className="flex gap-4 border-t py-4 text-sm leading-snug text-text-secondary" style={{ borderColor: 'var(--line)' }}>
+                <b className="w-6 shrink-0 font-semibold tabular-nums text-text">{String(i + 1).padStart(2, '0')}</b>
+                <span>{t}</span>
+              </li>
+            ))}
+          </ol>
         </Reveal>
-        <div className="space-y-8">
-          <Reveal i={1}>
-            <div className="glass rounded-3xl p-6 sm:p-8">
+        <Reveal i={1}>
+          <div className="glass space-y-8 rounded-3xl p-6 sm:p-8">
+            <div>
               <h3 className="mb-5 text-lg font-bold">{s.skills_personal}</h3>
               <div className="flex flex-wrap gap-2">
                 {c.personal.map((p) => (
@@ -38,9 +36,7 @@ export default function Skills() {
                 ))}
               </div>
             </div>
-          </Reveal>
-          <Reveal i={2}>
-            <div className="glass rounded-3xl p-6 sm:p-8">
+            <div className="border-t pt-8" style={{ borderColor: 'var(--line)' }}>
               <h3 className="mb-5 text-lg font-bold">{s.skills_software}</h3>
               <div className="flex flex-wrap gap-2">
                 {c.software.map((p) => (
@@ -54,8 +50,8 @@ export default function Skills() {
                 ))}
               </div>
             </div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

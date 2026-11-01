@@ -32,7 +32,7 @@ export default function CustomCursor() {
       aria-hidden="true"
       className="pointer-events-none fixed left-0 top-0 z-[95] -ml-4 -mt-4 h-8 w-8 rounded-full border border-secondary/70 mix-blend-screen"
       style={{ x: sx, y: sy }}
-      animate={{ scale: big ? 1.9 : 1, backgroundColor: big ? 'rgba(56,189,248,0.15)' : 'rgba(56,189,248,0)' }}
+      animate={{ scale: big ? 1.9 : 1, backgroundColor: big ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0)' }}
       transition={{ duration: 0.25 }}
     />
   )

@@ -43,7 +43,7 @@ export default function ExperienceDetail({ index }: { index: number }) {
       <div className="mt-10 grid gap-8 lg:grid-cols-[0.8fr_1.4fr]">
         <Reveal>
           <aside className="glass rounded-3xl p-6">
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-accent">{s.overview}</h2>
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-accent-soft">{s.overview}</h2>
             <dl className="space-y-4">
               {facts.map(([k, v]) => (
                 <div key={k}>
@@ -56,7 +56,7 @@ export default function ExperienceDetail({ index }: { index: number }) {
         </Reveal>
         <Reveal i={1}>
           <section className="glass rounded-3xl p-6 sm:p-8">
-            <h2 className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-accent">{s.activities}</h2>
+            <h2 className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-accent-soft">{s.activities}</h2>
             <ol className="space-y-4">
               {e.points.map((p, i) => (
                 <li key={p} className="flex gap-4 text-sm leading-relaxed text-text-secondary">

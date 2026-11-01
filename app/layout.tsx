@@ -3,6 +3,8 @@ import './globals.css'
 import { LanguageProvider } from '@/components/providers/LanguageProvider'
 import LoadingScreen from '@/components/layout/LoadingScreen'
 import ScrollProgress from '@/components/layout/ScrollProgress'
+import SectionTint from '@/components/layout/SectionTint'
+import MoleculeBackground from '@/components/layout/MoleculeBackground'
 import CustomCursor from '@/components/layout/CustomCursor'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -31,7 +33,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#060914',
+  themeColor: '#0a66c2',
   width: 'device-width',
   initialScale: 1,
 }
@@ -52,6 +54,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LanguageProvider>
           <LoadingScreen />
           <ScrollProgress />
+          <SectionTint />
+          <MoleculeBackground />
           <CustomCursor />
           <Navbar />
           <main id="konten">{children}</main>

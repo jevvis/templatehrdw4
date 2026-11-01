@@ -16,7 +16,7 @@ export default function Experience() {
 
   return (
     <section id="experience" className="section">
-      <SectionHeading eyebrow={s.exp_eyebrow} title={c.sections[1].title} />
+      <SectionHeading title={c.sections[1].title} />
       <div className="mb-8 flex flex-wrap gap-2" role="group" aria-label={s.category}>
         {chips.map((k) => (
           <button
@@ -51,7 +51,7 @@ export default function Experience() {
                   <span className="chip absolute left-3 top-3 bg-black/50 backdrop-blur">{cat[category]}</span>
                 </div>
                 <div className="flex flex-1 flex-col p-5">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-accent">{e.period}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent-soft">{e.period}</p>
                   <h3 className="mt-2 text-lg font-bold leading-snug">{e.role}</h3>
                   <p className="mt-1 text-sm text-text-secondary">{e.org}</p>
                   <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-text-secondary">{e.points[0]}</p>

@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useLang } from '@/components/providers/LanguageProvider'
+import { setReady } from '@/lib/ready'
+import { EASE_CURTAIN } from '@/lib/utils'
 
 /** Layar pembuka dengan progress bar. Tampil sekali per sesi (tambahkan ?loading=1 untuk memaksa tampil lagi). */
 export default function LoadingScreen() {
@@ -17,6 +19,7 @@ export default function LoadingScreen() {
       seen = sessionStorage.getItem('loaded') === '1' && !location.search.includes('loading=1')
     } catch {}
     if (seen) {
+      setReady()
       setShow(false)
       return
     }
@@ -31,6 +34,7 @@ export default function LoadingScreen() {
         try {
           sessionStorage.setItem('loaded', '1')
         } catch {}
+        setReady() // hero mulai bergerak bersamaan dengan tirai yang naik
         setShow(false)
       }
     }
@@ -47,7 +51,7 @@ export default function LoadingScreen() {
           role="status"
           aria-live="polite"
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background"
-          exit={{ y: '-100%', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
+          exit={{ y: '-100%', transition: { duration: 0.9, ease: EASE_CURTAIN } }}
         >
           <p className="text-3xl font-extrabold tracking-tight">
             {c.name}

@@ -40,6 +40,31 @@ export interface Lanyard3DProps {
 const GLTF_PATH = '/assets/lanyard/kartu.glb'
 useGLTF.preload(GLTF_PATH)
 
+/**
+ * Perbaikan ujung pita (kedip/terpotong di dekat kartu). Shader meshline membandingkan `previous == position` (float, persis)
+ * di titik pertama dan `next == position` di titik terakhir, padahal `position` ikut dikali `aspect` sedangkan `previous`/`next`
+ * tidak, sehingga hasil perbandingannya bergantung pada pembulatan dan berubah-ubah saat posisi bergerak. Bila salah, arah
+ * ujung dihitung dari selisih noise: ujung miring/runcing atau ruas pertama hilang. Di sini `previous` titik pertama dan `next`
+ * titik terakhir diisi titik ekstrapolasi searah garis, jadi cabang rapuh itu tidak pernah terpakai.
+ */
+function fixLineEnds(g: MeshLineGeometry) {
+  const pos = g.attributes.position.array as Float32Array
+  const prev = g.attributes.previous.array as Float32Array
+  const next = g.attributes.next.array as Float32Array
+  const n = pos.length / 6
+  if (n < 2) return
+  for (let k = 0; k < 6; k++) {
+    const c = k % 3
+    prev[k] = 2 * pos[c] - pos[6 + c] // titik pertama: p0 - (p1 - p0)
+    next[(n - 1) * 6 + k] = 2 * pos[(n - 1) * 6 + c] - pos[(n - 2) * 6 + c] // titik terakhir: pN + (pN - pN-1)
+  }
+  g.attributes.previous.needsUpdate = true
+  g.attributes.next.needsUpdate = true
+}
+
+/** panjang satu ulangan tulisan pada pita (satuan dunia) */
+const TILE_LEN = 0.8
+
 const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 4, linearDamping: 4 } as const
 
 // ───── tekstur yang digambar dari kode ─────
@@ -148,6 +173,12 @@ async function drawAtlas(ctx: CanvasRenderingContext2D, w: number, h: number, ba
   ctx.fillStyle = '#fff'
   ctx.fillRect(0, 0, w, h)
   if (base) ctx.drawImage(base, 0, 0, w, h)
+  // sisi belakang polos: timpa seluruh kotak kanan atlas (motif kartu remi bawaan model dibuang)
+  const back = ctx.createLinearGradient(w / 2, 0, w, 780)
+  back.addColorStop(0, '#1b87e6')
+  back.addColorStop(1, '#0a4f9c')
+  ctx.fillStyle = back
+  ctx.fillRect(w / 2, 0, w / 2, 780)
   const img = await loadImage(p.photo)
   const fc = document.createElement('canvas')
   fc.width = 716
@@ -244,7 +275,12 @@ function Band({ maxSpeed = 50, minSpeed = 10, ...props }: Lanyard3DProps & { max
       curve.points[1].copy(j2.current.lerped)
       curve.points[2].copy(j1.current.lerped)
       curve.points[3].copy(fixed.current.translation() as THREE.Vector3)
-      band.current.geometry.setPoints(curve.getPoints(width < 640 ? 20 : 32))
+      // titik dibagi rata menurut panjang busur dan tile tekstur berpanjang tetap dihitung dari ujung kartu,
+      // supaya tulisan tidak merayap/berkedip saat tali melengkung (pemetaan lama: nomor titik, bukan panjang)
+      curve.updateArcLengths()
+      band.current.geometry.setPoints(curve.getSpacedPoints(width < 640 ? 20 : 32))
+      fixLineEnds(band.current.geometry)
+      band.current.material.uniforms.repeat.value.set(-curve.getLength() / TILE_LEN, 1)
       tmp.ang.copy(card.current.angvel() as THREE.Vector3)
       tmp.rot.copy(card.current.rotation() as unknown as THREE.Vector3)
       card.current.setAngvel({ x: tmp.ang.x, y: tmp.ang.y - tmp.rot.y * 0.25, z: tmp.ang.z }, true)
@@ -319,13 +355,28 @@ export default function Lanyard3D(props: Lanyard3DProps) {
 
   return (
     <div ref={wrap} className="relative -mt-28 mx-auto h-[700px] w-full max-w-[460px] select-none sm:-mt-32 sm:h-[780px] lg:translate-x-14" style={{ touchAction: 'pan-y' }} role="img" aria-label={props.label}>
+      {/* Kanvas WebGL memotong apa pun di luar kotaknya. Kanvas dibuat selebar layar (maks 1400 px) dan berpusat pada kolom,
+          sedangkan interaksi tetap hanya di kolom lewat eventSource, sehingga kartu dan pita bebas berayun ke kiri/kanan tanpa terpotong
+          dan tidak menutupi tombol/teks di sebelahnya. */}
       <Canvas
+        eventSource={wrap as React.MutableRefObject<HTMLElement>}
         camera={{ position: [0, 0, 11.2], fov: 25 }}
         dpr={[1, 1.75]}
         gl={{ alpha: true, antialias: true }}
         frameloop={visible ? 'always' : 'never'}
-        onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), 0)}
-        style={{ touchAction: 'pan-y' }}
+        onCreated={({ gl, setEvents }) => {
+          gl.setClearColor(new THREE.Color(0x000000), 0)
+          // eventSource = kolom sempit, kanvas lebih lebar dan bergeser: koordinat pointer harus relatif terhadap kanvas
+          // (opsi prefiks bawaan R3F memakai clientX mentah sehingga raycast meleset)
+          setEvents({
+            compute: (event, state) => {
+              const r = gl.domElement.getBoundingClientRect()
+              state.pointer.set(((event.clientX - r.left) / r.width) * 2 - 1, -((event.clientY - r.top) / r.height) * 2 + 1)
+              state.raycaster.setFromCamera(state.pointer, state.camera)
+            },
+          })
+        }}
+        style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', width: 'min(100vw, 1400px)', transform: 'translateX(-50%)', pointerEvents: 'none', touchAction: 'pan-y' }}
       >
         <ambientLight intensity={Math.PI} />
         <Physics interpolate gravity={[0, -40, 0]} timeStep={1 / 60} paused={!visible}>

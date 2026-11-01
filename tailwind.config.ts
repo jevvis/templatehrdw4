@@ -6,21 +6,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#060914',
-        surface: '#0d1329',
-        'surface-2': '#141b3a',
-        primary: '#7c83ff',
-        secondary: '#38bdf8',
-        accent: '#2dd4bf',
-        text: '#e8ebf8',
-        'text-secondary': '#98a2c8',
-        line: 'rgba(255,255,255,0.12)',
+        background: '#0a66c2',
+        surface: '#0c5cb0',
+        'surface-2': '#1275d6',
+        primary: '#ffffff',
+        secondary: '#dbeeff',
+        accent: '#7ff0e4',
+        'accent-soft': '#c4fff7',
+        text: '#ffffff',
+        'text-secondary': '#f7fbff',
+        line: 'rgba(255,255,255,0.24)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        glow: '0 0 60px -12px rgba(124,131,255,0.55)',
+        glow: '0 18px 50px -14px rgba(3,34,86,0.6)',
       },
     },
   },

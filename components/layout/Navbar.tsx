@@ -18,6 +18,21 @@ const LINKS = [
   ['contact', 'nav_contact'],
 ] as const
 
+// NavLink berada di luar Navbar agar identitasnya stabil (tidak dipasang ulang tiap render) dan animasi pil bisa berpindah mulus.
+// Di halaman detail tautan bagian memakai Link (navigasi klien, tanpa muat ulang dan tanpa layar loading).
+function NavLink({ home, id, className, children, onClick }: { home: boolean; id: string; className: string; children: React.ReactNode; onClick?: () => void }) {
+  const href = home ? `#${id}` : `/#${id}`
+  return home ? (
+    <a href={href} className={className} onClick={onClick}>
+      {children}
+    </a>
+  ) : (
+    <Link href={href} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  )
+}
+
 export default function Navbar() {
   const { lang, setLang, s, c } = useLang()
   const pathname = usePathname()
@@ -52,19 +67,6 @@ export default function Navbar() {
   }, [open])
   useEffect(() => setOpen(false), [pathname])
 
-  const href = (id: string) => (home ? `#${id}` : `/#${id}`)
-  // di halaman detail tautan bagian memakai Link (navigasi klien, tanpa muat ulang dan tanpa layar loading)
-  const NavLink = ({ id, className, children, onClick }: { id: string; className: string; children: React.ReactNode; onClick?: () => void }) =>
-    home ? (
-      <a href={href(id)} className={className} onClick={onClick}>
-        {children}
-      </a>
-    ) : (
-      <Link href={href(id)} className={className} onClick={onClick}>
-        {children}
-      </Link>
-    )
-
   return (
     <>
       <a href="#konten" className="sr-only fixed left-4 top-4 z-[120] rounded-lg bg-white px-4 py-2 text-sm font-semibold text-black focus:not-sr-only">
@@ -87,13 +89,14 @@ export default function Navbar() {
             {LINKS.map(([id, key]) => (
               <li key={id}>
                 <NavLink
+                  home={home}
                   id={id}
-                  className={cn(
-                    'rounded-full px-3 py-1.5 text-xs font-medium transition-colors',
-                    home && active === id ? 'bg-white/10 text-white' : 'text-text-secondary hover:text-white'
-                  )}
+                  className={cn('relative block rounded-full px-3 py-1.5 text-xs font-medium transition-colors', home && active === id ? 'text-white' : 'text-text-secondary hover:text-white')}
                 >
-                  {s[key]}
+                  {home && active === id && (
+                    <motion.span layoutId="nav-pill" data-pill className="absolute inset-0 rounded-full bg-white/10" transition={{ type: 'spring', stiffness: 420, damping: 34 }} />
+                  )}
+                  <span className="relative">{s[key]}</span>
                 </NavLink>
               </li>
             ))}
@@ -142,7 +145,7 @@ export default function Navbar() {
             <ul className="space-y-1">
               {LINKS.map(([id, key], i) => (
                 <motion.li key={id} initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 * i + 0.1, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}>
-                  <NavLink id={id} onClick={() => setOpen(false)} className={cn('block py-2 text-3xl font-bold tracking-tight', home && active === id ? 'gradient-text' : 'text-white')}>
+                  <NavLink home={home} id={id} onClick={() => setOpen(false)} className={cn('block py-2 text-3xl font-bold tracking-tight', home && active === id ? 'gradient-text' : 'text-white')}>
                     {s[key]}
                   </NavLink>
                 </motion.li>

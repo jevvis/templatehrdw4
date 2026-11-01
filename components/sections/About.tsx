@@ -7,15 +7,14 @@ import SectionHeading from '@/components/ui/SectionHeading'
 
 export default function About() {
   const { c, s } = useLang()
+  // IPK sudah tampil besar di bagian Pendidikan, jadi di sini hanya angka yang tidak diulang di tempat lain
   const stats = [
-    { label: s.stat_gpa_prof, to: Number(c.edu[0].gpa), decimals: 2 },
-    { label: s.stat_gpa_s1, to: Number(c.edu[1].gpa), decimals: 2 },
     { label: s.stat_exp, to: c.internships.length, decimals: 0 },
     { label: s.stat_cert, to: c.certs.length, decimals: 0 },
   ]
   return (
     <section id="about" className="section">
-      <SectionHeading eyebrow={s.about_eyebrow} title={c.tx.aboutBtn} />
+      <SectionHeading title={c.tx.aboutBtn} />
       <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
         <div>
           <Reveal>
@@ -32,15 +31,13 @@ export default function About() {
             </div>
           </Reveal>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="divide-y divide-white/20 self-start">
           {stats.map((st, i) => (
-            <Reveal key={st.label} i={i}>
-              <div className="glass h-full rounded-3xl p-5 transition-transform duration-300 hover:-translate-y-1">
-                <p className="gradient-text text-4xl font-extrabold tracking-tight sm:text-5xl">
-                  <Counter to={st.to} decimals={st.decimals} />
-                </p>
-                <p className="mt-2 text-xs font-medium leading-snug text-text-secondary">{st.label}</p>
-              </div>
+            <Reveal key={st.label} i={i} className="flex items-baseline gap-5 py-7 first:pt-0 last:pb-0">
+              <p className="text-6xl font-extrabold tabular-nums tracking-tight sm:text-7xl">
+                <Counter to={st.to} decimals={st.decimals} />
+              </p>
+              <p className="text-sm leading-snug text-text-secondary">{st.label}</p>
             </Reveal>
           ))}
         </div>
