@@ -7,7 +7,7 @@ import { useLang } from '@/components/providers/LanguageProvider'
 import Lanyard2D from './Lanyard2D'
 
 function Placeholder() {
-  return <div className="-mt-28 mx-auto h-[700px] w-full max-w-[460px] sm:-mt-32 sm:h-[780px] lg:translate-x-14" aria-hidden="true" />
+  return <div className="mx-auto mt-2 h-[700px] w-full max-w-[460px] sm:mt-4 sm:h-[780px] lg:-mt-32 lg:translate-x-14" aria-hidden="true" />
 }
 
 // Lanyard 3D (three.js + fisika Rapier) dimuat hanya di browser, setelah halaman siap

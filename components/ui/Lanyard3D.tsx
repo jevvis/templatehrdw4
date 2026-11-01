@@ -353,8 +353,9 @@ export default function Lanyard3D(props: Lanyard3DProps) {
     return () => io.disconnect()
   }, [])
 
+  // Tarikan ke atas (-mt) hanya di layar lebar yang dua kolom; di HP/tablet satu kolom, pita harus mulai di bawah tombol, bukan menimpanya.
   return (
-    <div ref={wrap} className="relative -mt-28 mx-auto h-[700px] w-full max-w-[460px] select-none sm:-mt-32 sm:h-[780px] lg:translate-x-14" style={{ touchAction: 'pan-y' }} role="img" aria-label={props.label}>
+    <div ref={wrap} className="lanyard-fade relative mx-auto mt-2 h-[700px] w-full max-w-[460px] select-none sm:mt-4 sm:h-[780px] lg:-mt-32 lg:translate-x-14" style={{ touchAction: 'pan-y' }} role="img" aria-label={props.label}>
       {/* Kanvas WebGL memotong apa pun di luar kotaknya. Kanvas dibuat selebar layar (maks 1400 px) dan berpusat pada kolom,
           sedangkan interaksi tetap hanya di kolom lewat eventSource, sehingga kartu dan pita bebas berayun ke kiri/kanan tanpa terpotong
           dan tidak menutupi tombol/teks di sebelahnya. */}

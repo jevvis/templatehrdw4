@@ -43,6 +43,18 @@ body {
   overflow-x: clip;
 }
 
+/* lanyard satu kolom (di bawah lg): ujung atas pita memudar halus, bukan terpotong keras di tengah halaman */
+.lanyard-fade {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 96px);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 96px);
+}
+@media (min-width: 1024px) {
+  .lanyard-fade {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
 /* tidak ada kata tunggal yatim di baris terakhir paragraf; judul dibagi rata */
 p,
 li {
